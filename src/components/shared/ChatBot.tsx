@@ -108,7 +108,7 @@ const ChatBot: React.FC<ChatBotProps> = ({ isOpen, onClose }) => {
       {/* Header */}
       <div className="bg-chambray text-white p-4 flex items-center justify-between">
         <div className="flex items-center space-x-3">
-          <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
+          <div className="!w-8 min-w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
             <CpuChipIcon className="w-5 h-5" />
           </div>
           <div>
@@ -132,7 +132,7 @@ const ChatBot: React.FC<ChatBotProps> = ({ isOpen, onClose }) => {
             className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
           >
             <div className={`flex items-start space-x-2 max-w-[80%] ${message.sender === 'user' ? 'flex-row-reverse space-x-reverse' : ''}`}>
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
+              <div className={`!w-8 min-w-8 h-8 rounded-full flex items-center justify-center ${
                 message.sender === 'user' 
                   ? 'bg-chambray text-white' 
                   : 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300'
