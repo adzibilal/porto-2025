@@ -63,15 +63,15 @@ const TestimonialSection = () => {
 
     return (
         <section className="testimonial-section ">
-            <div className="bg-white px-[6rem] pt-[8rem] pb-[5rem]">
-                <div className="flex items-center justify-between mb-[10rem]">
+            <div className="bg-white px-4 md:px-8 lg:px-[6rem] pt-8 md:pt-16 lg:pt-[8rem] pb-8 md:pb-12 lg:pb-[5rem]">
+                <div className="flex items-center justify-between mb-8 md:mb-16 lg:mb-[10rem]">
                     <BlurText
                         text="(Testimonials)"
                         delay={150}
                         animateBy="words"
                         direction="top"
                         onAnimationComplete={handleAnimationComplete}
-                        className="text-[22px] italic font-meta text-zinc-500"
+                        className="text-[16px] md:text-[20px] lg:text-[22px] italic font-meta text-zinc-500"
                     />
                     <BlurText
                         text="(03)"
@@ -79,7 +79,7 @@ const TestimonialSection = () => {
                         animateBy="words"
                         direction="top"
                         onAnimationComplete={handleAnimationComplete}
-                        className="text-[22px] italic font-meta text-zinc-500"
+                        className="text-[16px] md:text-[20px] lg:text-[22px] italic font-meta text-zinc-500"
                     />
                 </div>
                 <BlurText
@@ -88,7 +88,7 @@ const TestimonialSection = () => {
                     animateBy="words"
                     direction="top"
                     onAnimationComplete={handleAnimationComplete}
-                    className="!text-[14rem] text-zinc-900 font-bold leading-none font-heading"
+                    className="!text-[3rem] md:!text-[6rem] lg:!text-[14rem] text-zinc-900 font-bold leading-none font-heading"
                 />
                 <BlurText
                     text="Hear from my colleagues and clients about my work and what they think of me."
@@ -96,22 +96,22 @@ const TestimonialSection = () => {
                     animateBy="words"
                     direction="top"
                     onAnimationComplete={handleAnimationComplete}
-                    className="text-[3.5rem] text-zinc-800 font-semibold leading-none mt-5"
+                    className="text-[1.25rem] md:text-[2.5rem] lg:text-[3.5rem] text-zinc-800 font-semibold leading-none mt-3 md:mt-4 lg:mt-5"
                 />
             </div>
-            <div className="grid grid-cols-3 bg-white">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 bg-white">
                 {dummyTestimonials.map((testimonial, idx) => (
-                    <div key={testimonial.id} className={`${idx % 2 === 0 ? 'bg-zinc-50' : 'bg-zinc-100'} p-[4rem] flex flex-col justify-between`}>
-                        <Image src={quoteIcon} alt="quote" width={50} height={50} className='mb-[2rem]' />
+                    <div key={testimonial.id} className={`${idx % 2 === 0 ? 'bg-zinc-50' : 'bg-zinc-100'} p-6 md:p-8 lg:p-[4rem] flex flex-col justify-between min-h-[400px] md:min-h-[450px] lg:min-h-[500px]`}>
+                        <Image src={quoteIcon} alt="quote" width={40} height={40} className='mb-4 md:mb-6 lg:mb-[2rem]' />
                         <div className="">
-                            <div className="text-xl text-zinc-900 font-semibold">{testimonial.title}</div>
-                            <div className="text-md text-zinc-500 mt-[1rem]">{testimonial.description}</div>
+                            <div className="text-lg md:text-xl text-zinc-900 font-semibold">{testimonial.title}</div>
+                            <div className="text-sm md:text-md text-zinc-500 mt-3 md:mt-4 lg:mt-[1rem] leading-relaxed">{testimonial.description}</div>
                         </div>
-                        <div className="flex items-center gap-2 mt-[2rem]">
-                            <div className="w-10 h-10 bg-zinc-900 rounded-full"></div>
+                        <div className="flex items-center gap-3 mt-6 md:mt-8 lg:mt-[2rem]">
+                            <div className="w-8 h-8 md:w-10 md:h-10 bg-zinc-900 rounded-full"></div>
                             <div className="">
-                                <div className="text-xl text-zinc-900 font-semibold">{testimonial.name}</div>
-                                <div className="font-meta text-zinc-500 italic text-sm">{testimonial.jobTitle}</div>
+                                <div className="text-lg md:text-xl text-zinc-900 font-semibold">{testimonial.name}</div>
+                                <div className="font-meta text-zinc-500 italic text-xs md:text-sm">{testimonial.jobTitle}</div>
                             </div>
                         </div>
                     </div>

@@ -3,9 +3,9 @@ import LetterGlitch from '../shared/LetterGlitchBG';
 
 const Footer = () => {
   return (
-    <div className="grid grid-cols-[2fr_1fr]">
+    <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr]">
 
-      <div className="relative px-[6rem] py-[4rem] overflow-hidden">
+      <div className="relative px-4 md:px-8 lg:px-[6rem] py-8 md:py-12 lg:py-[4rem] overflow-hidden order-2 lg:order-1">
         {/* LetterGlitch Background */}
         <div className="absolute inset-0 z-0">
           <LetterGlitch
@@ -19,27 +19,27 @@ const Footer = () => {
 
         {/* Content */}
         <div className="relative z-10 flex flex-col gap-4">
-          <h1 className="footer-title text-[10rem] text-white font-bold">ADZI BILAL ©</h1>
+          <h1 className="footer-title text-[3rem] md:text-[6rem] lg:text-[10rem] text-white font-bold">ADZI BILAL ©</h1>
 
           {/* form hire me and some icon social media */}
-          <div className="flex flex-col gap-6 mt-8">
+          <div className="flex flex-col gap-6 mt-6 md:mt-8">
             {/* Hire Me Form */}
             <div className="max-w-md">
-              <h3 className="text-white text-4xl font-semibold mb-4">Hire Me</h3>
+              <h3 className="text-white text-2xl md:text-3xl lg:text-4xl font-semibold mb-3 md:mb-4">Hire Me</h3>
               <form className="flex flex-col gap-3">
                 <input
                   type="email"
                   placeholder="Your email"
-                  className="px-4 py-2 bg-zinc-800 text-white border border-zinc-700 rounded-md focus:outline-none focus:border-zinc-500 placeholder-zinc-400"
+                  className="px-3 md:px-4 py-2 bg-zinc-800 text-white border border-zinc-700 rounded-md focus:outline-none focus:border-zinc-500 placeholder-zinc-400 text-sm md:text-base"
                 />
                 <textarea
                   placeholder="Tell me about your project..."
                   rows={3}
-                  className="px-4 py-2 bg-zinc-800 text-white border border-zinc-700 rounded-md focus:outline-none focus:border-zinc-500 placeholder-zinc-400 resize-none"
+                  className="px-3 md:px-4 py-2 bg-zinc-800 text-white border border-zinc-700 rounded-md focus:outline-none focus:border-zinc-500 placeholder-zinc-400 resize-none text-sm md:text-base"
                 />
                 <button
                   type="submit"
-                  className="px-6 py-2 bg-white text-black font-medium rounded-md hover:bg-gray-200 transition-colors self-start"
+                  className="px-4 md:px-6 py-2 bg-white text-black font-medium rounded-md hover:bg-gray-200 transition-colors self-start text-sm md:text-base"
                 >
                   Send Message
                 </button>
@@ -47,7 +47,7 @@ const Footer = () => {
             </div>
 
             {/* Social Media Icons */}
-            <div className="flex gap-4">
+            <div className="flex gap-3 md:gap-4">
               <a
                 href="https://github.com/adzibilal"
                 target="_blank"
@@ -95,7 +95,7 @@ const Footer = () => {
       </div>
 
       {/* video section */}
-      <div className="relative overflow-hidden aspect-[4/5]">
+      <div className="relative overflow-hidden aspect-[4/3] md:aspect-[4/4] lg:aspect-[4/5] order-1 lg:order-2">
         <video
           className="w-full h-full object-cover"
           autoPlay
