@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton+SC&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Libertinus+Serif:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap');
+
+@import "tailwindcss";
+
+/* Tailwind v4 Custom Variant for Dark Mode */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Light Mode Theme */
+@theme {
+  --color-background: #ffffff;
+  --color-foreground: #171717;
+
+  /* CHAMBRAY COLORS */
+  --color-chambray-lightest: #EBECF2;
+  --color-chambray-lighter: #D7DAE6;
+  --color-chambray-light: #737EA9;
+  --color-chambray: #374785;
+  --color-chambray-dark: #2c386a;
+  --color-chambray-darker: #161c35;
+  --color-chambray-darkest: #101527;
+
+  /* PERSIMMON COLORS */
+  --color-persimmon: #fd5e53;
+
+  /* YELLOWBUS COLORS */
+  --color-yellowbus: #ffd800;
+
+  /* FONTS */
+  --font-heading: var(--font-roboto-condensed);
+  --font-body: var(--font-inter);
+}
+
+/* Dark Mode Theme */
+@theme dark {
+  --color-background: #0a0a0a;
+  --color-foreground: #ededed;
+
+  /* CHAMBRAY COLORS for Dark Mode */
+  --color-chambray-darkest: #101527;
+  --color-chambray-darker: #161c35;
+  --color-chambray-dark: #2c386a;
+  --color-chambray: #737EA9;
+  --color-chambray-light: #D7DAE6;
+  --color-chambray-lighter: #EBECF2;
+  --color-chambray-lightest: #ffffff;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: "Inter", sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  scroll-behavior: smooth;
+}
+
+/* Container class for max-width and centering */
+.container {
+  max-width: 1024px; /* lg breakpoint */
+  margin: 0 auto;
+  padding: 0 1rem; /* 16px padding on sides for mobile */
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.font-heading {
+  font-family: "Anton SC", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-transform: uppercase;
+}
+
+.font-meta {  
+  font-family: "Libertinus Serif", serif;
+}
+
+@media (min-width: 640px) {
+  .container {
+    padding: 0 1.5rem; /* 24px padding on sm+ screens */
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding: 0 2rem; /* 32px padding on md+ screens */
+  }
+}
