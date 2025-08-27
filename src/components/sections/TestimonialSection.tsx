@@ -88,7 +88,7 @@ const TestimonialSection = () => {
                     animateBy="words"
                     direction="top"
                     onAnimationComplete={handleAnimationComplete}
-                    className="!text-[14rem] text-chambray-darkest font-bold leading-none font-heading"
+                    className="!text-[14rem] text-zinc-900 font-bold leading-none font-heading"
                 />
                 <BlurText
                     text="Hear from my colleagues and clients about my work and what they think of me."
@@ -96,7 +96,7 @@ const TestimonialSection = () => {
                     animateBy="words"
                     direction="top"
                     onAnimationComplete={handleAnimationComplete}
-                    className="text-[3.5rem] text-chambray-dark font-semibold leading-none mt-5"
+                    className="text-[3.5rem] text-zinc-800 font-semibold leading-none mt-5"
                 />
             </div>
             <div className="grid grid-cols-3 bg-white">
@@ -104,13 +104,13 @@ const TestimonialSection = () => {
                     <div key={testimonial.id} className={`${idx % 2 === 0 ? 'bg-zinc-50' : 'bg-zinc-100'} p-[4rem] flex flex-col justify-between`}>
                         <Image src={quoteIcon} alt="quote" width={50} height={50} className='mb-[2rem]' />
                         <div className="">
-                            <div className="text-xl text-chambray-darkest font-semibold">{testimonial.title}</div>
+                            <div className="text-xl text-zinc-900 font-semibold">{testimonial.title}</div>
                             <div className="text-md text-zinc-500 mt-[1rem]">{testimonial.description}</div>
                         </div>
                         <div className="flex items-center gap-2 mt-[2rem]">
-                            <div className="w-10 h-10 bg-chambray-darkest rounded-full"></div>
+                            <div className="w-10 h-10 bg-zinc-900 rounded-full"></div>
                             <div className="">
-                                <div className="text-xl text-chambray-darkest font-semibold">{testimonial.name}</div>
+                                <div className="text-xl text-zinc-900 font-semibold">{testimonial.name}</div>
                                 <div className="font-meta text-zinc-500 italic text-sm">{testimonial.jobTitle}</div>
                             </div>
                         </div>

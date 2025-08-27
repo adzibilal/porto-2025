@@ -36,7 +36,7 @@ const HeroSection = () => {
             animateBy="words"
             direction="top"
             onAnimationComplete={handleAnimationComplete}
-            className="!text-[14rem] font-bold text-chambray-darkest leading-none font-heading"
+            className="!text-[14rem] font-bold text-zinc-900 leading-none font-heading"
           />
 
           <div className="flex flex-col gap-4">
@@ -54,7 +54,7 @@ const HeroSection = () => {
               animateBy="words"
               direction="top"
               onAnimationComplete={handleAnimationComplete}
-              className="!text-[3rem] font-semibold leading-none text-chambray-dark"
+              className="!text-[3rem] font-semibold leading-none text-zinc-800"
             />
           </div>
         </div>
@@ -74,7 +74,7 @@ const HeroSection = () => {
               animateBy="words"
               direction="top"
               onAnimationComplete={handleAnimationComplete}
-              className="text-[6rem] font-bold text-chambray-darkest leading-none font-heading"
+              className="text-[6rem] font-bold text-zinc-900 leading-none font-heading"
             />
             <BlurText
               text="An experienced Frontend Developer passionate about creating exceptional digital experiences. I specialize in building fast, reliable websites with a strong focus on user-centric design and effective team collaboration."
@@ -99,13 +99,13 @@ const HeroSection = () => {
               <div className="clients-grid absolute flex gap-4">
                 {/* Original items */}
                 {Array.from({ length: 5 }, (_, index) => index).map((id) => (
-                  <div key={`client-original-${id}`} className="client-item w-[200px] h-[120px] bg-gray-200 text-chambray-darkest text-[20px] font-bold text-center flex items-center justify-center flex-shrink-0">
+                  <div key={`client-original-${id}`} className="client-item w-[200px] h-[120px] bg-gray-200 text-zinc-900 text-[20px] font-bold text-center flex items-center justify-center flex-shrink-0">
                     IMG {id + 1}
                   </div>
                 ))}
                 {/* Duplicate items for seamless loop */}
                 {Array.from({ length: 5 }, (_, index) => index).map((id) => (
-                  <div key={`client-duplicate-${id}`} className="client-item w-[200px] h-[120px] bg-gray-200 text-chambray-darkest text-[20px] font-bold text-center flex items-center justify-center flex-shrink-0">
+                  <div key={`client-duplicate-${id}`} className="client-item w-[200px] h-[120px] bg-gray-200 text-zinc-900 text-[20px] font-bold text-center flex items-center justify-center flex-shrink-0">
                     IMG {id + 1}
                   </div>
                 ))}

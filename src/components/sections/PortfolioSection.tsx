@@ -80,7 +80,7 @@ const PortfolioSection = () => {
           animateBy="words"
           direction="top"
           onAnimationComplete={handleAnimationComplete}
-          className="text-[19rem] text-chambray-darkest font-bold leading-none font-heading"
+          className="text-[19rem] text-zinc-900 font-bold leading-none font-heading"
         />
         <BlurText
           text="Explore my recent projects showcasing creativity, innovation, and impactful design solutions."
@@ -88,7 +88,7 @@ const PortfolioSection = () => {
           animateBy="words"
           direction="top"
           onAnimationComplete={handleAnimationComplete}
-          className="text-[5rem] text-chambray-dark font-semibold leading-none"
+          className="text-[5rem] text-zinc-800 font-semibold leading-none"
         />
       </div>
       {/* ScrollStack container untuk portfolio cards */}
@@ -117,7 +117,7 @@ const PortfolioSection = () => {
               />
             </div>
             <div className="bg-zinc-100 p-6 flex items-center justify-between">
-              <div className="text-4xl text-chambray-darkest font-semibold">{project.title}</div>
+              <div className="text-4xl text-zinc-900 font-semibold">{project.title}</div>
               <div className="text-md text-zinc-500 mt-1 font-meta italic">{project.description}</div>
             </div>
           </div>
