@@ -8,6 +8,7 @@ interface ColorRGB {
 }
 
 interface SplashCursorProps {
+    theme?: 'light' | 'dark';
     SIM_RESOLUTION?: number;
     DYE_RESOLUTION?: number;
     CAPTURE_RESOLUTION?: number;
@@ -53,6 +54,7 @@ function pointerPrototype(): Pointer {
 }
 
 export default function SplashCursor({
+    theme = 'light',
     SIM_RESOLUTION = 128,
     DYE_RESOLUTION = 1440,
     CAPTURE_RESOLUTION = 512,
@@ -1441,6 +1443,7 @@ export default function SplashCursor({
             }
         });
     }, [
+        theme,
         SIM_RESOLUTION,
         DYE_RESOLUTION,
         CAPTURE_RESOLUTION,
