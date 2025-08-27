@@ -16,9 +16,9 @@ const FloatingActionButtons = () => {
   useEffect(() => {
     // Check saved theme in localStorage
     const savedTheme = localStorage.getItem('theme') as 'light' | 'dark' | null;
-    const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     
-    const initialTheme = savedTheme || systemTheme;
+    // Default to light theme if no saved preference
+    const initialTheme = savedTheme || 'light';
     setTheme(initialTheme);
     
     // Apply theme to document

@@ -55,7 +55,7 @@ const PortfolioSection = () => {
 
   return (
     <section className="portfolio-section ">
-      <div className="bg-white px-4 md:px-8 lg:px-[6rem] pt-8 md:pt-16 lg:pt-[8rem] pb-8 md:pb-12 lg:pb-[5rem]">
+      <div className="bg-white dark:bg-gray-900 px-4 md:px-8 lg:px-[6rem] pt-8 md:pt-16 lg:pt-[8rem] pb-8 md:pb-12 lg:pb-[5rem] transition-colors duration-300">
         <div className="flex items-center justify-between mb-8 md:mb-16 lg:mb-[10rem]">
           <BlurText
             text="(Selected Work)"
@@ -63,7 +63,7 @@ const PortfolioSection = () => {
             animateBy="words"
             direction="top"
             onAnimationComplete={handleAnimationComplete}
-            className="text-[16px] md:text-[20px] lg:text-[22px] italic font-meta text-zinc-500"
+            className="text-[16px] md:text-[20px] lg:text-[22px] italic font-meta text-zinc-500 dark:text-zinc-400 transition-colors duration-300"
           />
           <BlurText
             text="(01)"
@@ -71,7 +71,7 @@ const PortfolioSection = () => {
             animateBy="words"
             direction="top"
             onAnimationComplete={handleAnimationComplete}
-            className="text-[16px] md:text-[20px] lg:text-[22px] italic font-meta text-zinc-500"
+            className="text-[16px] md:text-[20px] lg:text-[22px] italic font-meta text-zinc-500 dark:text-zinc-400 transition-colors duration-300"
           />
         </div>
         <BlurText
@@ -80,7 +80,7 @@ const PortfolioSection = () => {
           animateBy="words"
           direction="top"
           onAnimationComplete={handleAnimationComplete}
-          className="text-[4rem] md:text-[8rem] lg:text-[19rem] text-zinc-900 font-bold leading-none font-heading"
+          className="text-[4rem] md:text-[8rem] lg:text-[19rem] text-zinc-900 dark:text-zinc-100 font-bold leading-none font-heading transition-colors duration-300"
         />
         <BlurText
           text="Explore my recent projects showcasing creativity, innovation, and impactful design solutions."
@@ -88,13 +88,13 @@ const PortfolioSection = () => {
           animateBy="words"
           direction="top"
           onAnimationComplete={handleAnimationComplete}
-          className="text-[1.5rem] md:text-[3rem] lg:text-[5rem] text-zinc-800 font-semibold leading-none"
+          className="text-[1.5rem] md:text-[3rem] lg:text-[5rem] text-zinc-800 dark:text-zinc-200 font-semibold leading-none transition-colors duration-300"
         />
       </div>
       {/* ScrollStack container untuk portfolio cards */}
-      <div className="bg-white grid grid-cols-1 md:grid-cols-2">
+      <div className="bg-white dark:bg-gray-900 grid grid-cols-1 md:grid-cols-2 transition-colors duration-300">
         {dummyProjects.map((project) => (
-          <div key={project.id} className="bg-white">
+          <div key={project.id} className="bg-white dark:bg-gray-900 transition-colors duration-300">
             <div className="aspect-square relative bg-black">
               <Image src={project.backroundUrl} alt={project.title} width={1000} height={1000} className="object-cover aspect-square absolute top-0 left-0 -z-0 grayscale-100" />
               {/* overlay */}
@@ -116,9 +116,9 @@ const PortfolioSection = () => {
                 imageClassName="filter brightness-0 invert"
               />
             </div>
-            <div className="bg-zinc-100 p-4 md:p-6 flex flex-col md:flex-row md:items-center justify-between gap-2">
-              <div className="text-2xl md:text-3xl lg:text-4xl text-zinc-900 font-semibold">{project.title}</div>
-              <div className="text-sm md:text-md text-zinc-500 font-meta italic">{project.description}</div>
+            <div className="bg-zinc-100 dark:bg-gray-800 p-4 md:p-6 flex flex-col md:flex-row md:items-center justify-between gap-2 transition-colors duration-300">
+              <div className="text-2xl md:text-3xl lg:text-4xl text-zinc-900 dark:text-zinc-100 font-semibold transition-colors duration-300">{project.title}</div>
+              <div className="text-sm md:text-md text-zinc-500 dark:text-zinc-400 font-meta italic transition-colors duration-300">{project.description}</div>
             </div>
           </div>
         ))}

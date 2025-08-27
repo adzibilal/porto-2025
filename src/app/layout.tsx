@@ -20,6 +20,11 @@ export const metadata: Metadata = {
     default: "Adzi Bilal - Frontend Developer",
     template: "%s | Adzi Bilal - Frontend Developer"
   },
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 1,
+  },
   description: "Experienced Frontend Developer specializing in React, Next.js, TypeScript, and modern web technologies. Passionate about user-focused design, high-performance websites, and seamless collaboration. Currently working at PT Motiolabs Digital Indonesia.",
   keywords: [
     "Frontend Developer",

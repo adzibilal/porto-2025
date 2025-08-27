@@ -15,7 +15,7 @@ const HeroSection = () => {
   useClientCarousel('.clients-grid', { duration: 30 });
 
   return (
-    <section className="flex flex-col-reverse lg:grid lg:grid-cols-[1.8fr_2fr] bg-white min-h-screen">
+    <section className="flex flex-col-reverse lg:grid lg:grid-cols-[1.8fr_2fr] bg-white dark:bg-gray-900 min-h-screen transition-colors duration-300">
       {/* Image sticky container */}
       <div className="relative order-2 lg:order-1">
         <Image
@@ -36,7 +36,7 @@ const HeroSection = () => {
             animateBy="words"
             direction="top"
             onAnimationComplete={handleAnimationComplete}
-            className="!text-[8rem] md:!text-[8rem] lg:!text-[14rem] font-bold text-zinc-900 leading-none font-heading"
+            className="!text-[8rem] md:!text-[8rem] lg:!text-[14rem] font-bold text-zinc-900 dark:text-zinc-100 leading-none font-heading transition-colors duration-300"
           />
 
           <div className="flex flex-col gap-4 mt-8 lg:mt-0">
@@ -46,7 +46,7 @@ const HeroSection = () => {
               animateBy="words"
               direction="top"
               onAnimationComplete={handleAnimationComplete}
-              className="italic capitalize text-zinc-500 font-meta !text-[16px] md:!text-[20px] lg:!text-[22px]"
+              className="italic capitalize text-zinc-500 dark:text-zinc-400 font-meta !text-[16px] md:!text-[20px] lg:!text-[22px] transition-colors duration-300"
             />
             <BlurText
               text="Crafting impactful brands and websites that drive growth and success."
@@ -54,7 +54,7 @@ const HeroSection = () => {
               animateBy="words"
               direction="top"
               onAnimationComplete={handleAnimationComplete}
-              className="!text-[1.5rem] md:!text-[2.5rem] lg:!text-[3rem] font-semibold leading-none text-zinc-800"
+              className="!text-[1.5rem] md:!text-[2.5rem] lg:!text-[3rem] font-semibold leading-none text-zinc-800 dark:text-zinc-200 transition-colors duration-300"
             />
           </div>
         </div>
@@ -66,7 +66,7 @@ const HeroSection = () => {
               animateBy="words"
               direction="top"
               onAnimationComplete={handleAnimationComplete}
-              className="italic capitalize text-zinc-500 font-meta text-[16px] md:text-[20px] lg:text-[22px]"
+              className="italic capitalize text-zinc-500 dark:text-zinc-400 font-meta text-[16px] md:text-[20px] lg:text-[22px] transition-colors duration-300"
             />
             <BlurText
               text="Creative Brands & Powerful Websites."
@@ -74,7 +74,7 @@ const HeroSection = () => {
               animateBy="words"
               direction="top"
               onAnimationComplete={handleAnimationComplete}
-              className="text-[2.5rem] md:text-[4rem] lg:text-[6rem] font-bold text-zinc-900 leading-none font-heading"
+              className="text-[2.5rem] md:text-[4rem] lg:text-[6rem] font-bold text-zinc-900 dark:text-zinc-100 leading-none font-heading transition-colors duration-300"
             />
             <BlurText
               text="An experienced Frontend Developer passionate about creating exceptional digital experiences. I specialize in building fast, reliable websites with a strong focus on user-centric design and effective team collaboration."
@@ -82,7 +82,7 @@ const HeroSection = () => {
               animateBy="words"
               direction="top"
               onAnimationComplete={handleAnimationComplete}
-              className="text-[16px] md:text-[18px] lg:text-[20px] text-gray-500"
+              className="text-[16px] md:text-[18px] lg:text-[20px] text-gray-500 dark:text-gray-400 transition-colors duration-300"
             />
           </div>
           <div className="flex flex-col gap-4">
@@ -92,20 +92,20 @@ const HeroSection = () => {
               animateBy="words"
               direction="top"
               onAnimationComplete={handleAnimationComplete}
-              className="italic capitalize text-zinc-500 font-meta text-[16px] md:text-[20px] lg:text-[22px]"
+              className="italic capitalize text-zinc-500 dark:text-zinc-400 font-meta text-[16px] md:text-[20px] lg:text-[22px] transition-colors duration-300"
             />
                          {/* loop some place holder image 5:3 ratio image size 200x120 */}
             <div className="relative overflow-hidden w-full h-[80px] md:h-[100px] lg:h-[120px]">
               <div className="clients-grid absolute flex gap-2 md:gap-3 lg:gap-4">
                 {/* Original items */}
                 {Array.from({ length: 5 }, (_, index) => index).map((id) => (
-                  <div key={`client-original-${id}`} className="client-item w-[120px] md:w-[160px] lg:w-[200px] h-[80px] md:h-[100px] lg:h-[120px] bg-gray-200 text-zinc-900 text-[14px] md:text-[16px] lg:text-[20px] font-bold text-center flex items-center justify-center flex-shrink-0">
+                  <div key={`client-original-${id}`} className="client-item w-[120px] md:w-[160px] lg:w-[200px] h-[80px] md:h-[100px] lg:h-[120px] bg-gray-200 dark:bg-gray-700 text-zinc-900 dark:text-zinc-100 text-[14px] md:text-[16px] lg:text-[20px] font-bold text-center flex items-center justify-center flex-shrink-0 transition-colors duration-300">
                     IMG {id + 1}
                   </div>
                 ))}
                 {/* Duplicate items for seamless loop */}
                 {Array.from({ length: 5 }, (_, index) => index).map((id) => (
-                  <div key={`client-duplicate-${id}`} className="client-item w-[120px] md:w-[160px] lg:w-[200px] h-[80px] md:h-[100px] lg:h-[120px] bg-gray-200 text-zinc-900 text-[14px] md:text-[16px] lg:text-[20px] font-bold text-center flex items-center justify-center flex-shrink-0">
+                  <div key={`client-duplicate-${id}`} className="client-item w-[120px] md:w-[160px] lg:w-[200px] h-[80px] md:h-[100px] lg:h-[120px] bg-gray-200 dark:bg-gray-700 text-zinc-900 dark:text-zinc-100 text-[14px] md:text-[16px] lg:text-[20px] font-bold text-center flex items-center justify-center flex-shrink-0 transition-colors duration-300">
                     IMG {id + 1}
                   </div>
                 ))}

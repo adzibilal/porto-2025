@@ -3,7 +3,7 @@ import LetterGlitch from '../shared/LetterGlitchBG';
 
 const Footer = () => {
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr]">
+    <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] transition-colors duration-300">
 
       <div className="relative px-4 md:px-8 lg:px-[6rem] py-8 md:py-12 lg:py-[4rem] overflow-hidden order-2 lg:order-1">
         {/* LetterGlitch Background */}
