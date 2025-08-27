@@ -1,6 +1,7 @@
 "use client";
 
 import React from 'react';
+import Link from 'next/link';
 import { useFadeIn, useStaggerChildren } from '@/hooks/useGSAP';
 
 const Navbar = () => {
@@ -13,14 +14,14 @@ const Navbar = () => {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <div className="navbar-brand" ref={brandRef}>
-            <a href="/" className="text-2xl font-heading font-bold text-foreground dark:text-foreground hover:text-chambray dark:hover:text-chambray-light transition-colors">
+            <Link href="/" className="text-2xl font-heading font-bold text-foreground dark:text-foreground hover:text-chambray dark:hover:text-chambray-light transition-colors">
               Portfolio
-            </a>
+            </Link>
           </div>
 
           {/* Navigation Links */}
           <div className="navbar-menu hidden md:flex space-x-8" ref={menuRef}>
-            <a href="/" className="text-gray-700 dark:text-gray-300 hover:text-chambray dark:hover:text-chambray-light transition-colors">Home</a>
+            <Link href="/" className="text-gray-700 dark:text-gray-300 hover:text-chambray dark:hover:text-chambray-light transition-colors">Home</Link>
             <a href="/about" className="text-gray-700 dark:text-gray-300 hover:text-chambray dark:hover:text-chambray-light transition-colors">About</a>
             <a href="/skills" className="text-gray-700 dark:text-gray-300 hover:text-chambray dark:hover:text-chambray-light transition-colors">Skills</a>
             <a href="/projects" className="text-gray-700 dark:text-gray-300 hover:text-chambray dark:hover:text-chambray-light transition-colors">Projects</a>

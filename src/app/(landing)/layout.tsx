@@ -1,5 +1,5 @@
-import { Navbar, Footer } from '@/components/layout';
-import { FloatingActionButtons, DarkModeDebug } from '@/components/shared';
+import { Footer } from '@/components/layout';
+import { FloatingActionButtons } from '@/components/shared';
 
 export default function LandingLayout({
   children,

@@ -113,7 +113,7 @@ const ChatBot: React.FC<ChatBotProps> = ({ isOpen, onClose }) => {
           </div>
           <div>
             <h3 className="font-semibold">Bilal AI</h3>
-            <p className="text-xs opacity-90">Adzi's Assistant</p>
+            <p className="text-xs opacity-90">Adzi&apos;s Assistant</p>
           </div>
         </div>
         <button
