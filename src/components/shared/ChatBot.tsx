@@ -122,7 +122,7 @@ const ChatBot: React.FC<ChatBotProps> = ({ isOpen, onClose }) => {
   if (!isOpen || portalElement === null) return null;
 
   return createPortal(
-    <div className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-[999] w-[calc(100vw-2rem)] max-w-96 h-[calc(100vh-8rem)] max-h-[32rem] bg-background dark:bg-background border border-gray-200 dark:border-gray-700 rounded-2xl shadow-2xl flex flex-col overflow-hidden">
+    <div className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-50 w-[calc(100vw-2rem)] max-w-96 h-[calc(100vh-8rem)] max-h-[32rem] bg-background dark:bg-background border border-gray-200 dark:border-gray-700 rounded-2xl shadow-2xl flex flex-col overflow-hidden">
       {/* Header */}
       <div className="bg-chambray text-white p-4 flex items-center justify-between">
         <div className="flex items-center space-x-3">
