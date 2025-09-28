@@ -6,6 +6,17 @@ import heroImage from '@/assets/images/hero.jpg';
 import { useClientCarousel } from '@/hooks/useGSAP';
 import BlurText from '@/components/shared/BlurText';
 
+const clientLogos = [
+  { name: 'Forkey', src: '/img/clients/forkey.png' },
+  { name: 'Bara', src: '/img/clients/bara.png' },
+  { name: 'Eksam', src: '/img/clients/eksam.png' },
+  { name: 'IDCPNS', src: '/img/clients/idcpns.png' },
+  { name: 'LearnHub', src: '/img/clients/learnhub.png' },
+  { name: 'Mizan', src: '/img/clients/mizan.png' },
+  { name: 'My Digilearn', src: '/img/clients/my-digilearn.png' },
+  { name: 'Seremoni', src: '/img/clients/seremoni.png' },
+] as const;
+
 const HeroSection = () => {
   const handleAnimationComplete = () => {
     console.log('Animation completed!');
@@ -96,17 +107,19 @@ const HeroSection = () => {
             />
                          {/* loop some place holder image 5:3 ratio image size 200x120 */}
             <div className="relative overflow-hidden w-full h-[80px] md:h-[100px] lg:h-[120px]">
-              <div className="clients-grid absolute flex gap-2 md:gap-3 lg:gap-4">
-                {/* Original items */}
-                {Array.from({ length: 5 }, (_, index) => index).map((id) => (
-                  <div key={`client-original-${id}`} className="client-item w-[120px] md:w-[160px] lg:w-[200px] h-[80px] md:h-[100px] lg:h-[120px] bg-gray-200 dark:bg-gray-700 text-zinc-900 dark:text-zinc-100 text-[14px] md:text-[16px] lg:text-[20px] font-bold text-center flex items-center justify-center flex-shrink-0 transition-colors duration-300">
-                    IMG {id + 1}
-                  </div>
-                ))}
-                {/* Duplicate items for seamless loop */}
-                {Array.from({ length: 5 }, (_, index) => index).map((id) => (
-                  <div key={`client-duplicate-${id}`} className="client-item w-[120px] md:w-[160px] lg:w-[200px] h-[80px] md:h-[100px] lg:h-[120px] bg-gray-200 dark:bg-gray-700 text-zinc-900 dark:text-zinc-100 text-[14px] md:text-[16px] lg:text-[20px] font-bold text-center flex items-center justify-center flex-shrink-0 transition-colors duration-300">
-                    IMG {id + 1}
+              <div className="clients-grid absolute flex gap-2 md:gap-3 lg:gap-6">
+                {[...clientLogos, ...clientLogos].map((client, index) => (
+                  <div
+                    key={`client-logo-${client.name.replace(/\s+/g, '-').toLowerCase()}-${index}`}
+                    className="client-item w-[120px] md:w-[160px] lg:w-[200px] h-[80px] md:h-[100px] lg:h-[120px] flex items-center justify-center flex-shrink-0 opacity-50"
+                  >
+                    <Image
+                      src={client.src}
+                      alt={`${client.name} logo`}
+                      width={200}
+                      height={120}
+                      className="h-full w-full object-contain invert dark:invert-0"
+                    />
                   </div>
                 ))}
               </div>

@@ -94,4 +94,5 @@ export const initialStates = {
 
 export { gsap };
 export { ScrollSmoother };
+export { ScrollTrigger };
 export default gsap;

@@ -60,6 +60,23 @@
   position: relative;
 }
 
+.testimonial-marquee {
+  position: relative;
+  overflow: hidden;
+  cursor: grab;
+}
+
+.testimonial-marquee.dragging {
+  cursor: grabbing;
+}
+
+.testimonial-track {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+
+
 body {
   background-color: var(--color-background);
   color: var(--color-foreground);
