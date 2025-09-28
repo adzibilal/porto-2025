@@ -39,10 +39,12 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({ children }) => {
   }, []);
 
   return (
-    <SmoothScrollProvider>
-      {children}
+    <>
+      <SmoothScrollProvider>
+        {children}
+      </SmoothScrollProvider>
       <SplashCursor theme={theme} />
-    </SmoothScrollProvider>
+    </>
   );
 };
 

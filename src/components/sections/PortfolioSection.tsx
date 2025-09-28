@@ -54,7 +54,7 @@ const PortfolioSection = () => {
   ];
 
   return (
-    <section className="portfolio-section ">
+    <section className="portfolio-section relative z-20">
       <div className="bg-white dark:bg-gray-900 px-4 md:px-8 lg:px-[6rem] pt-8 md:pt-16 lg:pt-[8rem] pb-8 md:pb-12 lg:pb-[5rem] transition-colors duration-300">
         <div className="flex items-center justify-between mb-8 md:mb-16 lg:mb-[10rem]">
           <BlurText

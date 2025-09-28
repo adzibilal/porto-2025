@@ -1,7 +1,24 @@
-import React from 'react';
+"use client";
+
+import React, { useState } from 'react';
 import LetterGlitch from '../shared/LetterGlitchBG';
 
 const Footer = () => {
+  const [email, setEmail] = useState('');
+  const [projectDetail, setProjectDetail] = useState('');
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const baseMessage = projectDetail.trim() || 'Halo, saya tertarik untuk bekerja sama.';
+    const emailLine = email.trim() ? `Email: ${email.trim()}` : '';
+    const finalMessage = [baseMessage, emailLine].filter(Boolean).join('\n\n');
+    const encodedMessage = encodeURIComponent(finalMessage);
+    const whatsappUrl = `https://wa.me/6285156510302?text=${encodedMessage}`;
+
+    window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+  };
+
   return (
     <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] transition-colors duration-300">
 
@@ -26,22 +43,26 @@ const Footer = () => {
             {/* Hire Me Form */}
             <div className="max-w-md">
               <h3 className="text-white text-2xl md:text-3xl lg:text-4xl font-semibold mb-3 md:mb-4">Hire Me</h3>
-              <form className="flex flex-col gap-3">
+              <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
                 <input
                   type="email"
                   placeholder="Your email"
                   className="px-3 md:px-4 py-2 bg-zinc-800 text-white border border-zinc-700 rounded-md focus:outline-none focus:border-zinc-500 placeholder-zinc-400 text-sm md:text-base"
+                  value={email}
+                  onChange={(event) => setEmail(event.target.value)}
                 />
                 <textarea
                   placeholder="Tell me about your project..."
                   rows={3}
                   className="px-3 md:px-4 py-2 bg-zinc-800 text-white border border-zinc-700 rounded-md focus:outline-none focus:border-zinc-500 placeholder-zinc-400 resize-none text-sm md:text-base"
+                  value={projectDetail}
+                  onChange={(event) => setProjectDetail(event.target.value)}
                 />
                 <button
                   type="submit"
-                  className="px-4 md:px-6 py-2 bg-white text-black font-medium rounded-md hover:bg-gray-200 transition-colors self-start text-sm md:text-base"
+                  className="px-4 md:px-6 py-2 bg-[#25D366] text-black font-medium rounded-md hover:bg-[#20ba59] transition-colors text-sm md:text-base self-start"
                 >
-                  Send Message
+                  Send via WhatsApp
                 </button>
               </form>
             </div>

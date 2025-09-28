@@ -329,6 +329,95 @@ export const useClientCarousel = (
   }, [containerSelector, itemWidth, gap, originalItems, duration, delay]);
 };
 
+// Hook untuk pin element dengan scroll trigger
+export const usePinElement = <T extends HTMLElement = HTMLElement>(
+  options: {
+    trigger?: string;
+    start?: string;
+    end?: string;
+    pinSpacing?: boolean;
+    anticipatePin?: number;
+  } = {}
+): GSAPRefReturn<T> => {
+  const {
+    trigger,
+    start = 'top top',
+    end = 'bottom top',
+    pinSpacing = false,
+    anticipatePin = 1
+  } = options;
+
+  const ref = useRef<T>(null);
+
+  useEffect(() => {
+    // Early return if not in browser environment
+    if (typeof window === 'undefined' || !ref.current) {
+      return;
+    }
+
+    const element = ref.current;
+    
+    // Only enable pin effect on desktop (lg breakpoint and above)
+    const mediaQuery = window.matchMedia('(min-width: 1024px)');
+    
+    let scrollTrigger: ScrollTrigger | null = null;
+    
+    const createScrollTrigger = () => {
+      // Kill existing trigger first
+      if (scrollTrigger) {
+        scrollTrigger.kill();
+        scrollTrigger = null;
+      }
+      
+      // Reset any existing styles
+      element.style.zIndex = '';
+      
+      // Only create ScrollTrigger on desktop
+      if (mediaQuery.matches) {
+        scrollTrigger = ScrollTrigger.create({
+          trigger: trigger || element,
+          start,
+          end,
+          pin: element,
+          pinSpacing,
+          anticipatePin,
+          onToggle: (self) => {
+            // Ensure proper z-index management
+            if (self.isActive) {
+              element.style.zIndex = '10';
+            } else {
+              element.style.zIndex = '';
+            }
+          }
+        });
+      }
+    };
+    
+    const handleMediaChange = () => {
+      createScrollTrigger();
+    };
+    
+    // Initial setup
+    createScrollTrigger();
+    
+    // Listen for media query changes
+    mediaQuery.addEventListener('change', handleMediaChange);
+
+    return () => {
+      if (scrollTrigger) {
+        scrollTrigger.kill();
+      }
+      mediaQuery.removeEventListener('change', handleMediaChange);
+      // Reset z-index on cleanup
+      if (element) {
+        element.style.zIndex = '';
+      }
+    };
+  }, [trigger, start, end, pinSpacing, anticipatePin]);
+
+  return ref;
+};
+
 // Hook untuk animasi kartu bertumpuk dengan scroll trigger
 export const useCardStackScroll = (
   containerSelector: string = '.portfolio-cards',
