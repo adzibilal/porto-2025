@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { XMarkIcon, PaperAirplaneIcon, UserIcon, CpuChipIcon } from '@heroicons/react/24/solid';
 
 interface Message {
@@ -26,8 +27,25 @@ const ChatBot: React.FC<ChatBotProps> = ({ isOpen, onClose }) => {
   ]);
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [portalElement, setPortalElement] = useState<HTMLElement | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (typeof document === 'undefined') {
+      return undefined;
+    }
+
+    const element = document.createElement('div');
+    element.id = 'chatbot-portal';
+    document.body.appendChild(element);
+    setPortalElement(element);
+
+    return () => {
+      document.body.removeChild(element);
+      setPortalElement(null);
+    };
+  }, []);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -101,10 +119,10 @@ const ChatBot: React.FC<ChatBotProps> = ({ isOpen, onClose }) => {
     }
   };
 
-  if (!isOpen) return null;
+  if (!isOpen || portalElement === null) return null;
 
-  return (
-    <div className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-50 w-[calc(100vw-2rem)] max-w-96 h-[calc(100vh-8rem)] max-h-[32rem] bg-background dark:bg-background border border-gray-200 dark:border-gray-700 rounded-2xl shadow-2xl flex flex-col overflow-hidden">
+  return createPortal(
+    <div className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-[999] w-[calc(100vw-2rem)] max-w-96 h-[calc(100vh-8rem)] max-h-[32rem] bg-background dark:bg-background border border-gray-200 dark:border-gray-700 rounded-2xl shadow-2xl flex flex-col overflow-hidden">
       {/* Header */}
       <div className="bg-chambray text-white p-4 flex items-center justify-between">
         <div className="flex items-center space-x-3">
@@ -203,7 +221,8 @@ const ChatBot: React.FC<ChatBotProps> = ({ isOpen, onClose }) => {
           </button>
         </div>
       </div>
-    </div>
+    </div>,
+    portalElement
   );
 };
 

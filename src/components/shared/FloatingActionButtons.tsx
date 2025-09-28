@@ -1,17 +1,35 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { MoonIcon, SunIcon, ChatBubbleLeftRightIcon } from '@heroicons/react/24/solid';
 import { useFadeIn, useStaggerChildren } from '@/hooks/useGSAP';
 import ChatBot from './ChatBot';
 
 const FloatingActionButtons = () => {
+  const [portalElement, setPortalElement] = useState<HTMLElement | null>(null);
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const [isExpanded, setIsExpanded] = useState(false);
   const [isChatOpen, setIsChatOpen] = useState(false);
   
   const containerRef = useFadeIn<HTMLDivElement>(0.8);
   const buttonsRef = useStaggerChildren<HTMLDivElement>(0.2);
+
+  useEffect(() => {
+    if (typeof document === 'undefined') {
+      return undefined;
+    }
+
+    const element = document.createElement('div');
+    element.id = 'floating-action-buttons-portal';
+    document.body.appendChild(element);
+    setPortalElement(element);
+
+    return () => {
+      document.body.removeChild(element);
+      setPortalElement(null);
+    };
+  }, []);
 
   useEffect(() => {
     // Check saved theme in localStorage
@@ -57,7 +75,11 @@ const FloatingActionButtons = () => {
     setIsExpanded(!isExpanded);
   };
 
-  return (
+  if (portalElement === null) {
+    return null;
+  }
+
+  return createPortal(
     <>
       <div 
         ref={containerRef}
@@ -136,7 +158,7 @@ const FloatingActionButtons = () => {
     {/* Chat Bot Component */}
     <ChatBot isOpen={isChatOpen} onClose={handleCloseChatBot} />
   </>
-  );
+  , portalElement);
 };
 
 export default FloatingActionButtons;

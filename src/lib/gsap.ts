@@ -1,9 +1,10 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ScrollSmoother } from "gsap/ScrollSmoother";
 import { TextPlugin } from "gsap/TextPlugin";
 
 // Register GSAP plugins
-gsap.registerPlugin(ScrollTrigger, TextPlugin);
+gsap.registerPlugin(ScrollTrigger, ScrollSmoother, TextPlugin);
 
 // Default GSAP configurations
 gsap.defaults({
@@ -92,4 +93,5 @@ export const initialStates = {
 };
 
 export { gsap };
+export { ScrollSmoother };
 export default gsap;

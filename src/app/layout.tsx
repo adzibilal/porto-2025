@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Roboto_Condensed } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import ClientLayout from "@/components/layout/ClientLayout";
 
@@ -13,6 +14,23 @@ const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
   weight: ["200", "300", "400", "500", "600", "700", "800", "900"],
+});
+
+const generalSans = localFont({
+  src: [
+    {
+      path: "../../public/fonts/GeneralSans-Variable.woff2",
+      style: "normal",
+      weight: "100 900",
+    },
+    {
+      path: "../../public/fonts/GeneralSans-VariableItalic.woff2",
+      style: "italic",
+      weight: "100 900",
+    },
+  ],
+  variable: "--font-general-sans",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -104,7 +122,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} ${robotoCondensed.variable} antialiased`}
+        className={`${inter.variable} ${robotoCondensed.variable} ${generalSans.variable} antialiased`}
         suppressHydrationWarning
       >
         <ClientLayout>
