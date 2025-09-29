@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import SmoothScrollProvider from '@/components/layout/SmoothScrollProvider';
+import LenisProvider from '@/components/layout/LenisProvider';
 import SplashCursor from '@/components/shared/SplashCursor';
 
 interface ClientLayoutProps {
@@ -40,9 +40,9 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({ children }) => {
 
   return (
     <>
-      <SmoothScrollProvider>
+      <LenisProvider>
         {children}
-      </SmoothScrollProvider>
+      </LenisProvider>
       <SplashCursor theme={theme} />
     </>
   );

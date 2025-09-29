@@ -47,17 +47,25 @@
   --color-chambray-lightest: #ffffff;
 }
 
-.smooth-wrapper {
-  min-height: 100vh;
-  background-color: var(--color-background);
-  color: var(--color-foreground);
-  position: fixed;
-  inset: 0;
+/* Lenis Styles */
+html.lenis {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
   overflow: hidden;
 }
 
-.smooth-content {
-  position: relative;
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
 }
 
 .testimonial-marquee {
