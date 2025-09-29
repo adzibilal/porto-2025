@@ -4,9 +4,17 @@ import React from 'react';
 import BlurText from '@/components/shared/BlurText';
 import Image from 'next/image';
 
-// IMPORT IMAGES
-import mdlBg from '@/assets/images/porto/mdl-bg.webp';
-import mdlLogo from '@/assets/images/porto/mdl.png';
+// Import background images dari public/img/porto
+const baraBg = '/img/porto/bara.png';
+const idcpnsBg = '/img/porto/idcpns.png';
+const mizanBg = '/img/porto/mizanamanah.png';
+const digiLearnBg = '/img/porto/mydigilearn.png';
+
+// Import client logos (sebagai string path karena dari folder public)
+const idcpnsLogo = '/img/clients/idcpns.png';
+const digiLearnLogo = '/img/clients/my-digilearn.png';
+const mizanLogo = '/img/clients/mizan.png';
+const baraLogo = '/img/clients/bara.png';
 import TiltedCard from '../shared/TitledCard';
 
 const PortfolioSection = () => {
@@ -14,42 +22,42 @@ const PortfolioSection = () => {
     console.log('Portfolio animation completed!');
   };
 
-  const dummyProjects = [
+  const projects = [
     {
       id: 1,
-      title: 'Project 1',
-      description: 'Description 1',
-      year: '2024',
-      backroundUrl: mdlBg,
-      logoUrl: mdlLogo,
-      link: 'https://www.google.com',
-    },
-    {
-      id: 2,
-      title: 'Project 2',
-      description: 'Description 2',
-      year: '2024',
-      backroundUrl: mdlBg,
-      logoUrl: mdlLogo,
-      link: 'https://www.google.com',
+      title: 'ID CPNS',
+      description: 'Platform persiapan CPNS online',
+      year: '2022',
+      backroundUrl: idcpnsBg,
+      logoUrl: idcpnsLogo,
+      link: 'https://idcpns.com/',
     },
     {
       id: 3,
-      title: 'Project 3',
-      description: 'Description 3',
-      year: '2024',
-      backroundUrl: mdlBg,
-      logoUrl: mdlLogo,
-      link: 'https://www.google.com',
+      title: 'My DigiLearn',
+      description: 'Platform pembelajaran digital',
+      year: '2023',
+      backroundUrl: digiLearnBg,
+      logoUrl: digiLearnLogo,
+      link: 'https://mydigilearn.id',
     },
     {
-      id: 4,
-      title: 'Project 4',
-      description: 'Description 4',
-      year: '2024',
-      backroundUrl: mdlBg,
-      logoUrl: mdlLogo,
-      link: 'https://www.google.com',
+      id: 5,
+      title: 'Mizan',
+      description: 'Sistem Amil Zakat & Yatim Dhuafa',
+      year: '2019',
+      backroundUrl: mizanBg,
+      logoUrl: mizanLogo,
+      link: 'https://mydigilearn.id/',
+    },
+    {
+      id: 8,
+      title: 'Bara',
+      description: 'Solusi bisnis terintegrasi',
+      year: '2019',
+      backroundUrl: baraBg,
+      logoUrl: baraLogo,
+      link: 'https://bara.co.id/',
     },
   ];
 
@@ -93,32 +101,21 @@ const PortfolioSection = () => {
       </div>
       {/* ScrollStack container untuk portfolio cards */}
       <div className="bg-white dark:bg-gray-900 grid grid-cols-1 md:grid-cols-2 transition-colors duration-300">
-        {dummyProjects.map((project) => (
+        {projects.map((project) => (
           <div key={project.id} className="bg-white dark:bg-gray-900 transition-colors duration-300">
-            <div className="aspect-square relative bg-black">
-              <Image src={project.backroundUrl} alt={project.title} width={1000} height={1000} className="object-cover aspect-square absolute top-0 left-0 -z-0 grayscale-100" />
+            <div className="aspect-video relative bg-black">
+              <Image src={project.backroundUrl} alt={project.title} width={1000} height={1000} className="object-cover aspect-video absolute top-0 left-0 -z-0 grayscale-100" />
               {/* overlay */}
               <div className="absolute top-0 left-0 w-full h-full bg-black/50" />
-              <TiltedCard
-                imageSrc={project.logoUrl.src}
-                altText={project.title}
-                captionText={project.title}
-                containerHeight="150px"
-                containerWidth="150px"
-                imageHeight="auto"
-                imageWidth="100%"
-                rotateAmplitude={12}
-                scaleOnHover={1.2}
-                showMobileWarning={false}
-                showTooltip={true}
-                displayOverlayContent={true}
-                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-                imageClassName="filter brightness-0 invert"
-              />
+              <Image src={project.logoUrl} alt={project.title} width={1000} height={1000} className="object-cover absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 -z-0 grayscale-100 w-[150px] h-auto hover:scale-110 transition-all duration-300" />
             </div>
             <div className="bg-zinc-100 dark:bg-gray-800 p-4 md:p-6 flex flex-col md:flex-row md:items-center justify-between gap-2 transition-colors duration-300">
               <div className="text-2xl md:text-3xl lg:text-4xl text-zinc-900 dark:text-zinc-100 font-semibold transition-colors duration-300">{project.title}</div>
-              <div className="text-sm md:text-md text-zinc-500 dark:text-zinc-400 font-meta italic transition-colors duration-300">{project.description}</div>
+              <div className="flex flex-col items-end">
+                <div className="text-sm md:text-md text-zinc-500 dark:text-zinc-400 font-meta italic transition-colors duration-300">{project.description}</div>
+                {/* link to project */}
+                <a href={project.link} target="_blank" rel="noopener noreferrer" className="text-sm md:text-md text-zinc-500 dark:text-zinc-400 font-meta italic transition-colors duration-300 hover:text-red-500">View Project</a>
+              </div>
             </div>
           </div>
         ))}
