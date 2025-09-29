@@ -15,7 +15,6 @@ const idcpnsLogo = '/img/clients/idcpns.png';
 const digiLearnLogo = '/img/clients/my-digilearn.png';
 const mizanLogo = '/img/clients/mizan.png';
 const baraLogo = '/img/clients/bara.png';
-import TiltedCard from '../shared/TitledCard';
 
 const PortfolioSection = () => {
   const handleAnimationComplete = () => {
