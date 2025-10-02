@@ -139,7 +139,7 @@ export default function RichTextEditor({ content, onChange, placeholder }: RichT
             editor.isActive('blockquote') ? 'bg-gray-200 text-gray-900' : 'hover:bg-gray-100'
           }`}
         >
-          "
+          &quot;
         </button>
       </div>
 

@@ -18,7 +18,7 @@ export async function POST(request: NextRequest) {
     const buffer = Buffer.from(bytes)
 
     // Upload to Cloudinary
-    const result = await new Promise((resolve, reject) => {
+    const result = await new Promise<{secure_url: string; public_id: string}>((resolve, reject) => {
       cloudinary.uploader.upload_stream(
         {
           resource_type: 'image',
@@ -26,10 +26,11 @@ export async function POST(request: NextRequest) {
         },
         (error, result) => {
           if (error) reject(error)
-          else resolve(result)
+          else if (result) resolve(result)
+          else reject(new Error('Upload failed'))
         }
       ).end(buffer)
-    }) as any
+    })
 
     return NextResponse.json({
       secure_url: result.secure_url,

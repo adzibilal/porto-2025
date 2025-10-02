@@ -25,7 +25,17 @@ export async function POST(req: NextRequest) {
   // Create a new Svix instance with your secret.
   const wh = new Webhook(process.env.CLERK_WEBHOOK_SECRET || '')
 
-  let evt: any
+  let evt: {
+    type: string;
+    data: {
+      id: string;
+      email_addresses: Array<{
+        id: string;
+        email_address: string;
+      }>;
+      primary_email_address_id: string;
+    };
+  }
 
   // Verify the payload with the headers
   try {
@@ -33,7 +43,7 @@ export async function POST(req: NextRequest) {
       'svix-id': svix_id,
       'svix-timestamp': svix_timestamp,
       'svix-signature': svix_signature,
-    }) as any
+    }) as typeof evt
   } catch (err) {
     console.error('Error verifying webhook:', err)
     return new Response('Error occured', {
@@ -46,7 +56,7 @@ export async function POST(req: NextRequest) {
 
   if (eventType === 'user.created') {
     const { id, email_addresses } = evt.data
-    const primaryEmail = email_addresses.find((email: any) => email.id === evt.data.primary_email_address_id)
+    const primaryEmail = email_addresses.find((email) => email.id === evt.data.primary_email_address_id)
     
     if (primaryEmail) {
       const isWhitelisted = await checkEmailWhitelist(primaryEmail.email_address)

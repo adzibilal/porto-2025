@@ -2,7 +2,7 @@
 
 import { useUser } from '@clerk/nextjs'
 import { useRouter } from 'next/navigation'
-import { useEffect, useState, use } from 'react'
+import { useEffect, useState, use, useCallback } from 'react'
 import CMSHeader from '@/components/cms/CMSHeader'
 import AIGalleryForm from '@/components/cms/AIGalleryForm'
 
@@ -25,15 +25,7 @@ export default function EditAIGalleryPage({ params }: { params: Promise<{ id: st
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
-  useEffect(() => {
-    if (isLoaded && !user) {
-      router.push('/auth/login')
-    } else if (isLoaded && user) {
-      fetchItem()
-    }
-  }, [isLoaded, user, router])
-
-  const fetchItem = async () => {
+  const fetchItem = useCallback(async () => {
     try {
       const response = await fetch(`/api/ai-gallery/${id}`)
       if (response.ok) {
@@ -45,7 +37,7 @@ export default function EditAIGalleryPage({ params }: { params: Promise<{ id: st
           title: data.title,
           prompt: data.prompt,
           tags: data.tags,
-          images: data.ai_gallery_images?.map((img: any) => ({
+          images: data.images?.map((img: { image_url: string; public_id: string }) => ({
             secure_url: img.image_url,
             public_id: img.public_id
           })) || []
@@ -63,7 +55,15 @@ export default function EditAIGalleryPage({ params }: { params: Promise<{ id: st
     } finally {
       setLoading(false)
     }
-  }
+  }, [id])
+
+  useEffect(() => {
+    if (isLoaded && !user) {
+      router.push('/auth/login')
+    } else if (isLoaded && user) {
+      fetchItem()
+    }
+  }, [isLoaded, user, router, fetchItem])
 
   if (!isLoaded || loading) {
     return (

@@ -2,7 +2,7 @@
 
 import { useUser, useClerk } from '@clerk/nextjs'
 import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 
 interface WhitelistCheckerProps {
   readonly children: React.ReactNode
@@ -16,7 +16,7 @@ export default function WhitelistChecker({ children }: WhitelistCheckerProps) {
   const [isWhitelisted, setIsWhitelisted] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  const handleLogoutAndRedirect = async () => {
+  const handleLogoutAndRedirect = useCallback(async () => {
     try {
       await signOut()
       // Clear any additional data if needed
@@ -26,9 +26,9 @@ export default function WhitelistChecker({ children }: WhitelistCheckerProps) {
       // Force redirect even if logout fails
       window.location.href = '/auth/login'
     }
-  }
+  }, [signOut])
 
-  const checkWhitelist = async () => {
+  const checkWhitelist = useCallback(async () => {
     if (!user?.primaryEmailAddress?.emailAddress) {
       setError('Email tidak ditemukan')
       setIsChecking(false)
@@ -72,7 +72,7 @@ export default function WhitelistChecker({ children }: WhitelistCheckerProps) {
     } finally {
       setIsChecking(false)
     }
-  }
+  }, [user, handleLogoutAndRedirect])
 
   useEffect(() => {
     if (isLoaded && user) {
@@ -82,7 +82,7 @@ export default function WhitelistChecker({ children }: WhitelistCheckerProps) {
       // If no user, redirect to login
       router.push('/auth/login')
     }
-  }, [isLoaded, user, router])
+  }, [isLoaded, user, router, checkWhitelist])
 
   // Don't render anything if user is not loaded
   if (!isLoaded) {

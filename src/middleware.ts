@@ -20,6 +20,7 @@ const isPublicRoute = createRouteMatcher([
   '/services(.*)',
   '/sitemap(.*)',
   '/skills(.*)',
+  '/ai-gallery(.*)',
   '/api/auth/check-whitelist'
 ])
 
@@ -44,8 +45,6 @@ const middleware = clerkMiddleware(async (auth, req) => {
 
   // For any other routes, allow access (make them public by default)
   return NextResponse.next()
-}, {
-  afterSignOutUrl: '/auth/login'
 })
 
 export default middleware

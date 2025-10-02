@@ -84,7 +84,7 @@ export async function POST(request: NextRequest) {
 
     // Insert images if provided
     if (images && images.length > 0) {
-      const imageData = images.map((image: any, index: number) => ({
+      const imageData = images.map((image: { secure_url: string; public_id: string }, index: number) => ({
         ai_gallery_id: galleryItem.id,
         image_url: image.secure_url,
         public_id: image.public_id,

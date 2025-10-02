@@ -2,7 +2,7 @@
 
 import { useUser } from '@clerk/nextjs'
 import { useRouter } from 'next/navigation'
-import { useEffect, useState, use } from 'react'
+import { useEffect, useState, use, useCallback } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import CMSHeader from '@/components/cms/CMSHeader'
@@ -31,15 +31,7 @@ export default function ViewAIGalleryPage({ params }: { params: Promise<{ id: st
   const [error, setError] = useState<string | null>(null)
   const [selectedImageIndex, setSelectedImageIndex] = useState(0)
 
-  useEffect(() => {
-    if (isLoaded && !user) {
-      router.push('/auth/login')
-    } else if (isLoaded && user) {
-      fetchItem()
-    }
-  }, [isLoaded, user, router])
-
-  const fetchItem = async () => {
+  const fetchItem = useCallback(async () => {
     try {
       const response = await fetch(`/api/ai-gallery/${id}`)
       if (response.ok) {
@@ -56,7 +48,15 @@ export default function ViewAIGalleryPage({ params }: { params: Promise<{ id: st
     } finally {
       setLoading(false)
     }
-  }
+  }, [id])
+
+  useEffect(() => {
+    if (isLoaded && !user) {
+      router.push('/auth/login')
+    } else if (isLoaded && user) {
+      fetchItem()
+    }
+  }, [isLoaded, user, router, fetchItem])
 
   if (!isLoaded || loading) {
     return (

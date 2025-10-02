@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -21,7 +21,7 @@ interface AIGalleryItem {
   }[];
 }
 
-export default function AIGalleryPage() {
+function AIGalleryContent() {
   const searchParams = useSearchParams();
   const [items, setItems] = useState<AIGalleryItem[]>([]);
   const [loading, setLoading] = useState(true);
@@ -267,5 +267,13 @@ export default function AIGalleryPage() {
         )}
       </section>
     </div>
+  );
+}
+
+export default function AIGalleryPage() {
+  return (
+    <Suspense fallback={<GallerySkeleton />}>
+      <AIGalleryContent />
+    </Suspense>
   );
 }
