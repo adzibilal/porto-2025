@@ -13,7 +13,7 @@ interface AIGalleryItem {
   prompt: string
   tags: string[]
   created_at: string
-  ai_gallery_images: {
+  images: {
     id: number
     image_url: string
     public_id: string
@@ -148,9 +148,9 @@ export default function CMSAIGalleryPage() {
                 <div key={item.id} className="bg-white rounded-lg shadow-md overflow-hidden">
                   {/* Image */}
                   <div className="aspect-square relative">
-                    {item.ai_gallery_images.length > 0 ? (
+                    {item.images && item.images.length > 0 ? (
                       <Image
-                        src={item.ai_gallery_images[0].image_url}
+                        src={item.images[0].image_url}
                         alt={item.title}
                         fill
                         className="object-cover"
@@ -164,9 +164,9 @@ export default function CMSAIGalleryPage() {
                     )}
                     
                     {/* Image count badge */}
-                    {item.ai_gallery_images.length > 1 && (
+                    {item.images && item.images.length > 1 && (
                       <div className="absolute top-2 right-2 bg-black bg-opacity-60 text-white text-xs px-2 py-1 rounded">
-                        +{item.ai_gallery_images.length - 1}
+                        +{item.images.length - 1}
                       </div>
                     )}
                   </div>
@@ -178,11 +178,11 @@ export default function CMSAIGalleryPage() {
                     </h3>
                     
                     {/* Tags */}
-                    {item.tags.length > 0 && (
+                    {item.tags && item.tags.length > 0 && (
                       <div className="flex flex-wrap gap-1 mb-3">
-                        {item.tags.slice(0, 3).map((tag, index) => (
+                        {item.tags.slice(0, 3).map((tag) => (
                           <span
-                            key={index}
+                            key={tag}
                             className="inline-block px-2 py-1 text-xs bg-purple-100 text-purple-800 rounded-full"
                           >
                             {tag}

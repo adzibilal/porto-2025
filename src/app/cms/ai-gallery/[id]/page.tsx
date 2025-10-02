@@ -14,7 +14,7 @@ interface AIGalleryItem {
   tags: string[]
   created_at: string
   updated_at: string
-  ai_gallery_images: {
+  images: {
     id: number
     image_url: string
     public_id: string
@@ -99,7 +99,7 @@ export default function ViewAIGalleryPage({ params }: { params: Promise<{ id: st
     )
   }
 
-  const sortedImages = item.ai_gallery_images.sort((a, b) => a.display_order - b.display_order)
+  const sortedImages = item.images?.sort((a, b) => a.display_order - b.display_order) || []
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -188,13 +188,13 @@ export default function ViewAIGalleryPage({ params }: { params: Promise<{ id: st
             {/* Details */}
             <div className="space-y-6">
               {/* Tags */}
-              {item.tags.length > 0 && (
+              {item.tags && item.tags.length > 0 && (
                 <div className="bg-white rounded-lg shadow-md p-6">
                   <h3 className="text-lg font-semibold text-gray-900 mb-4">Tags</h3>
                   <div className="flex flex-wrap gap-2">
-                    {item.tags.map((tag, index) => (
+                    {item.tags.map((tag) => (
                       <span
-                        key={index}
+                        key={tag}
                         className="inline-block px-3 py-1 text-sm bg-purple-100 text-purple-800 rounded-full"
                       >
                         {tag}
