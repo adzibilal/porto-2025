@@ -2,13 +2,13 @@
 
 import React, { useState, useEffect } from 'react';
 import LenisProvider from '@/components/layout/LenisProvider';
-import SplashCursor from '@/components/shared/SplashCursor';
 
 interface ClientLayoutProps {
   children: React.ReactNode;
 }
 
 const ClientLayout: React.FC<ClientLayoutProps> = ({ children }) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
 
   useEffect(() => {
@@ -39,12 +39,9 @@ const ClientLayout: React.FC<ClientLayoutProps> = ({ children }) => {
   }, []);
 
   return (
-    <>
-      <LenisProvider>
-        {children}
-      </LenisProvider>
-      <SplashCursor theme={theme} />
-    </>
+    <LenisProvider>
+      {children}
+    </LenisProvider>
   );
 };
 
