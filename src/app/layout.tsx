@@ -3,6 +3,7 @@ import { Inter, Roboto_Condensed } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 import ClientLayout from "@/components/layout/ClientLayout";
+import { ClerkProvider } from '@clerk/nextjs';
 
 const robotoCondensed = Roboto_Condensed({
   variable: "--font-roboto-condensed",
@@ -120,15 +121,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${inter.variable} ${robotoCondensed.variable} ${generalSans.variable} antialiased`}
-        suppressHydrationWarning
-      >
-        <ClientLayout>
-          {children}
-        </ClientLayout>
-      </body>
-    </html>
+    <ClerkProvider afterSignOutUrl="/auth/login">
+      <html lang="en">
+        <body
+          className={`${inter.variable} ${robotoCondensed.variable} ${generalSans.variable} antialiased`}
+          suppressHydrationWarning
+        >
+          <ClientLayout>
+            {children}
+          </ClientLayout>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
