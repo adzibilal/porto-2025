@@ -26,7 +26,7 @@ function AIGalleryContent() {
   const [items, setItems] = useState<AIGalleryItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [selectedTag, setSelectedTag] = useState<string>('');
+  const [searchQuery, setSearchQuery] = useState<string>('');
 
   const handleAnimationComplete = () => {
     console.log('AI Gallery animation completed!');
@@ -37,9 +37,9 @@ function AIGalleryContent() {
   }, []);
 
   useEffect(() => {
-    const tagFromUrl = searchParams.get('tag');
-    if (tagFromUrl) {
-      setSelectedTag(tagFromUrl);
+    const queryFromUrl = searchParams.get('q');
+    if (queryFromUrl) {
+      setSearchQuery(queryFromUrl);
     }
   }, [searchParams]);
 
@@ -62,14 +62,16 @@ function AIGalleryContent() {
     }
   };
 
-  // Get all unique tags
-  const allTags = Array.from(
-    new Set(items.flatMap(item => item.tags || []))
-  ).sort((a, b) => a.localeCompare(b));
-
-  // Filter items by selected tag
-  const filteredItems = selectedTag 
-    ? items.filter(item => item.tags?.includes(selectedTag))
+  // Filter items by search query
+  const filteredItems = searchQuery 
+    ? items.filter(item => {
+        const searchLower = searchQuery.toLowerCase();
+        return (
+          item.title.toLowerCase().includes(searchLower) ||
+          item.prompt.toLowerCase().includes(searchLower) ||
+          item.tags?.some(tag => tag.toLowerCase().includes(searchLower))
+        );
+      })
     : items;
 
 
@@ -131,39 +133,43 @@ function AIGalleryContent() {
         </div>
       </section>
 
-      {/* Filter Section */}
-      {allTags.length > 0 && (
-        <section className="bg-white dark:bg-gray-900 px-4 md:px-8 lg:px-[6rem] pb-8 transition-colors duration-300">
-          <div className="flex flex-wrap gap-2 mb-4">
-            <button
-              onClick={() => setSelectedTag('')}
-              className={`px-3 py-1 text-sm rounded-full transition-colors ${
-                selectedTag === ''
-                  ? 'bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900'
-                  : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-700'
-              }`}
+      {/* Search Section */}
+      <section className="bg-white dark:bg-gray-900 px-4 md:px-8 lg:px-[6rem] pb-8 transition-colors duration-300">
+        <div className="relative max-w-2xl">
+          <div className="relative">
+            <svg 
+              className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-zinc-400" 
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
             >
-              All ({items.length})
-            </button>
-            {allTags.map((tag) => {
-              const count = items.filter(item => item.tags?.includes(tag)).length;
-              return (
-                <button
-                  key={tag}
-                  onClick={() => setSelectedTag(tag)}
-                  className={`px-3 py-1 text-sm rounded-full transition-colors ${
-                    selectedTag === tag
-                      ? 'bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900'
-                      : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-700'
-                  }`}
-                >
-                  {tag} ({count})
-                </button>
-              );
-            })}
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+            <input
+              type="text"
+              placeholder="Cari berdasarkan judul, prompt, atau tag..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pl-10 pr-4 py-3 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-lg text-zinc-900 dark:text-zinc-100 placeholder-zinc-500 dark:placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100 focus:border-transparent transition-colors duration-300"
+            />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery('')}
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300 transition-colors duration-300"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            )}
           </div>
-        </section>
-      )}
+          {searchQuery && (
+            <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+              Menampilkan {filteredItems.length} dari {items.length} hasil untuk &ldquo;{searchQuery}&rdquo;
+            </p>
+          )}
+        </div>
+      </section>
 
       {/* Gallery Grid */}
       <section className="bg-white dark:bg-gray-900 px-4 md:px-8 lg:px-[6rem] pb-16 md:pb-24 lg:pb-32 transition-colors duration-300">
@@ -172,7 +178,7 @@ function AIGalleryContent() {
         {!loading && filteredItems.length === 0 && (
           <div className="text-center py-16">
             <p className="text-zinc-500 dark:text-zinc-400 text-lg">
-              {selectedTag ? `No artworks found with tag "${selectedTag}"` : 'No artworks found'}
+              {searchQuery ? `Tidak ada karya seni yang ditemukan untuk &ldquo;${searchQuery}&rdquo;` : 'Tidak ada karya seni ditemukan'}
             </p>
           </div>
         )}
