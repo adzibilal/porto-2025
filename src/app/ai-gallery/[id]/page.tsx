@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
+import Head from 'next/head';
 import BlurText from '@/components/shared/BlurText';
 
 interface AIGalleryItem {
@@ -33,11 +34,196 @@ export default function AIGalleryDetailPage() {
     console.log('AI Gallery detail animation completed!');
   };
 
+  // Generate dynamic meta tags
+  const generateMetaTags = () => {
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.adzibilal.com';
+    
+    // Loading state meta tags
+    if (loading) {
+      return (
+        <Head>
+          <title>Loading AI Artwork | AI Gallery - Adzi Bilal</title>
+          <meta name="description" content="Loading AI-generated artwork from Adzi Bilal's gallery" />
+          <meta property="og:title" content="Loading AI Artwork | AI Gallery - Adzi Bilal" />
+          <meta property="og:description" content="Loading AI-generated artwork from Adzi Bilal's gallery" />
+          <meta property="og:image" content={`${baseUrl}/og-image.jpg`} />
+          <meta property="og:url" content={`${baseUrl}/ai-gallery/${params.id}`} />
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:title" content="Loading AI Artwork | AI Gallery - Adzi Bilal" />
+          <meta name="twitter:description" content="Loading AI-generated artwork from Adzi Bilal's gallery" />
+          <meta name="twitter:image" content={`${baseUrl}/og-image.jpg`} />
+        </Head>
+      );
+    }
+
+    // Error state meta tags
+    if (error || !item) {
+      return (
+        <Head>
+          <title>Artwork Not Found | AI Gallery - Adzi Bilal</title>
+          <meta name="description" content="The requested AI artwork could not be found in Adzi Bilal's gallery" />
+          <meta property="og:title" content="Artwork Not Found | AI Gallery - Adzi Bilal" />
+          <meta property="og:description" content="The requested AI artwork could not be found in Adzi Bilal's gallery" />
+          <meta property="og:image" content={`${baseUrl}/og-image.jpg`} />
+          <meta property="og:url" content={`${baseUrl}/ai-gallery/${params.id}`} />
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:title" content="Artwork Not Found | AI Gallery - Adzi Bilal" />
+          <meta name="twitter:description" content="The requested AI artwork could not be found in Adzi Bilal's gallery" />
+          <meta name="twitter:image" content={`${baseUrl}/og-image.jpg`} />
+        </Head>
+      );
+    }
+
+    const currentUrl = `${baseUrl}/ai-gallery/${item.id}`;
+    const imageUrl = item.images && item.images.length > 0 
+      ? item.images[0].image_url 
+      : `${baseUrl}/og-image.jpg`;
+    
+    // Clean prompt for description (remove HTML tags and limit length)
+    const cleanPrompt = item.prompt 
+      ? item.prompt.replace(/<[^>]*>/g, '').substring(0, 160) + '...'
+      : `AI-generated artwork by Adzi Bilal - ${item.title}`;
+    
+    const description = cleanPrompt.length > 160 
+      ? cleanPrompt.substring(0, 157) + '...'
+      : cleanPrompt;
+
+    return (
+      <Head>
+        {/* Basic Meta Tags */}
+        <title>{item.title} | AI Gallery - Adzi Bilal</title>
+        <meta name="description" content={description} />
+        <meta name="keywords" content={`AI Art, ${item.tags?.join(', ') || ''}, Adzi Bilal, AI Gallery, Artificial Intelligence, Digital Art`} />
+        <meta name="author" content="Adzi Bilal" />
+        <link rel="canonical" href={currentUrl} />
+
+        {/* Open Graph Meta Tags */}
+        <meta property="og:title" content={`${item.title} | AI Gallery - Adzi Bilal`} />
+        <meta property="og:description" content={description} />
+        <meta property="og:image" content={imageUrl} />
+        <meta property="og:url" content={currentUrl} />
+        <meta property="og:type" content="article" />
+        <meta property="og:site_name" content="Adzi Bilal Portfolio" />
+        <meta property="og:locale" content="id_ID" />
+        
+        {/* Open Graph Image Meta Tags */}
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content={item.title} />
+        <meta property="og:image:type" content="image/jpeg" />
+
+        {/* Article Specific Meta Tags */}
+        <meta property="article:author" content="Adzi Bilal" />
+        <meta property="article:published_time" content={item.created_at} />
+        <meta property="article:section" content="AI Gallery" />
+        {item.tags?.map((tag, index) => (
+          <meta key={index} property="article:tag" content={tag} />
+        ))}
+
+        {/* Twitter Card Meta Tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`${item.title} | AI Gallery - Adzi Bilal`} />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content={imageUrl} />
+        <meta name="twitter:image:alt" content={item.title} />
+        <meta name="twitter:creator" content="@adzibilal" />
+        <meta name="twitter:site" content="@adzibilal" />
+
+        {/* Additional SEO Meta Tags */}
+        <meta name="robots" content="index, follow" />
+        <meta name="googlebot" content="index, follow" />
+        <meta name="theme-color" content="#000000" />
+        <meta name="msapplication-TileColor" content="#000000" />
+        
+        {/* JSON-LD Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "CreativeWork",
+              "name": item.title,
+              "description": description,
+              "image": imageUrl,
+              "url": currentUrl,
+              "author": {
+                "@type": "Person",
+                "name": "Adzi Bilal",
+                "url": "https://www.adzibilal.com"
+              },
+              "dateCreated": item.created_at,
+              "genre": "AI Art",
+              "keywords": item.tags?.join(', ') || '',
+              "publisher": {
+                "@type": "Person",
+                "name": "Adzi Bilal"
+              }
+            })
+          }}
+        />
+      </Head>
+    );
+  };
+
   useEffect(() => {
     if (params.id) {
       fetchGalleryItem(params.id as string);
     }
   }, [params.id]);
+
+  // Update document title and meta tags when item changes
+  useEffect(() => {
+    if (item) {
+      document.title = `${item.title} | AI Gallery - Adzi Bilal`;
+      
+      // Update meta description
+      const metaDescription = document.querySelector('meta[name="description"]');
+      if (metaDescription) {
+        const cleanPrompt = item.prompt 
+          ? item.prompt.replace(/<[^>]*>/g, '').substring(0, 160) + '...'
+          : `AI-generated artwork by Adzi Bilal - ${item.title}`;
+        metaDescription.setAttribute('content', cleanPrompt);
+      }
+
+      // Update Open Graph tags
+      const ogTitle = document.querySelector('meta[property="og:title"]');
+      if (ogTitle) {
+        ogTitle.setAttribute('content', `${item.title} | AI Gallery - Adzi Bilal`);
+      }
+
+      const ogDescription = document.querySelector('meta[property="og:description"]');
+      if (ogDescription) {
+        const cleanPrompt = item.prompt 
+          ? item.prompt.replace(/<[^>]*>/g, '').substring(0, 160) + '...'
+          : `AI-generated artwork by Adzi Bilal - ${item.title}`;
+        ogDescription.setAttribute('content', cleanPrompt);
+      }
+
+      const ogImage = document.querySelector('meta[property="og:image"]');
+      if (ogImage && item.images && item.images.length > 0) {
+        ogImage.setAttribute('content', item.images[0].image_url);
+      }
+
+      // Update Twitter Card tags
+      const twitterTitle = document.querySelector('meta[name="twitter:title"]');
+      if (twitterTitle) {
+        twitterTitle.setAttribute('content', `${item.title} | AI Gallery - Adzi Bilal`);
+      }
+
+      const twitterDescription = document.querySelector('meta[name="twitter:description"]');
+      if (twitterDescription) {
+        const cleanPrompt = item.prompt 
+          ? item.prompt.replace(/<[^>]*>/g, '').substring(0, 160) + '...'
+          : `AI-generated artwork by Adzi Bilal - ${item.title}`;
+        twitterDescription.setAttribute('content', cleanPrompt);
+      }
+
+      const twitterImage = document.querySelector('meta[name="twitter:image"]');
+      if (twitterImage && item.images && item.images.length > 0) {
+        twitterImage.setAttribute('content', item.images[0].image_url);
+      }
+    }
+  }, [item]);
 
   const fetchGalleryItem = async (id: string) => {
     try {
@@ -136,7 +322,9 @@ export default function AIGalleryDetailPage() {
   const selectedImage = item.images && item.images.length > 0 ? item.images[selectedImageIndex] : null;
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
+    <>
+      {generateMetaTags()}
+      <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
       {/* Navigation */}
       <nav className="bg-white dark:bg-gray-900 px-4 md:px-8 lg:px-[6rem] py-4 border-b border-zinc-200 dark:border-zinc-700 transition-colors duration-300">
         <Link 
@@ -378,6 +566,7 @@ export default function AIGalleryDetailPage() {
           </div>
         </div>
       </section>
-    </div>
+      </div>
+    </>
   );
 }
